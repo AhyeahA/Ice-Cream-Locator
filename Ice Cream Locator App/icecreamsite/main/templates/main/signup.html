@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    h1 {
+            text-align:center;
+        }
+    div {
+            background-color: lightgrey;
+        }
+    body {
+        height: 100%;
+        margin: 50;
+        font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        background-image: url('https://thumbs.dreamstime.com/b/seamless-ice-cream-icons-pattern-white-background-black-115125311.jpg');
+    }
+    #sign-upform {
+            align-self: flex-start;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            background-color = #e7e7e6;
+    }
+    #login-form-register {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            background-color: #3a3a3a;
+            cursor: pointer;
+            outline: none;
+    }
+    #scrollcheckbox{
+        height:120px;
+        width:200px;
+        border:1px solid #ccc;
+        font:16px/26px Arial, Helvetica, sans-serif;
+        overflow:auto;
+    }
+    </style>
+</head>
+<body>
+<div>
+<h1> Register </h1>
+<form id = "sign-upform" action ="/main/signup" method="post">
+    {% csrf_token %}
+    <label for="your_name">First Name: </label>
+    <input id="your_name" type="text" name="your_name" value="">
+    <br>
+    <label for="username">Username: </label>
+    <input id="username" type="text" name="username" value="">
+    <br>
+    <label for="pass_word">Password: </label>
+    <input id="pass_word" type="text" name="pass_word" value="">
+    </br>
+    <br>
+    <label for="loc"> Enter Current Location: </label>
+    <input id="loc" type="text" name="loc" value="">
+    </br>
+    <br>
+    <label for="fav_ice"> Choose Your Favorite Flavors: </label>
+    <div id="scrollcheckbox">
+    {%  for b in flavors %}
+    <br>
+        <input type="checkbox" id="flavor" name = "flavor" value="{{b.flavor_name}}">
+        <label for="{{b.flavor_name}}">{{b.flavor_name}}</label>
+    <br>
+    {% endfor %}
+    </div>
+    </br>
+    {%  for e in errors %}
+    <label for="errors"> {{e}} </label>
+    {%endfor%}
+    <br>
+    <input id="login-form-register" type="submit" name = "buttonclicked" value="Submit">
+    </br>
+    <br>
+    <input id="login-form-register" type="submit" name = "buttonclicked" value="Go back to login page">
+    </br>
+</form>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style> 
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        background-color: #e7e7e6;
+        background-image: url('https://thumbs.dreamstime.com/b/seamless-ice-cream-icons-pattern-white-background-black-115125311.jpg');
+    }
+    h1 {
+            text-align:center;
+        }
+    div {
+        background-color: #e7e7e6;
+    }
+    #store-form {
+            align-self: flex-start;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+    }
+    #Flavorheader{
+        font-weight: bold;
+    }
+    #setRating{
+        font-weight: bold;
+    }
+    #writeReview{
+        font-weight: bold;
+    }
+    #submit-review {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            background-color: #3a3a3a;
+            cursor: pointer;
+            outline: none;
+    }
+    </style>
+</head>
+<body>
+<div>
+<h1> {{storename.store_name}}</h1>
+<form id="store-form" action ="/main/store" method="post">
+     {% csrf_token %}
+    <label id="Flavorheader">Flavors offered </label>
+    {%  for b in flavors %}
+    <br>
+        <label for="{{b.flavor_name}}">{{b.flavor_name}}</label>
+    <br>
+    {% endfor %}
+    <label id="Flavorheader">All Ratings </label>
+    <br>
+    {%  for b in reviews %}
+    <br>
+        <label for="{{b.user}}"> {{b.user.username}} Comment: {{b.reviews}} Rating: {{b.rating}} stars</label>
+    <br>
+    {% endfor %}
+    </br>
+    <br>
+    <label id="setRating"> Set Rating </label>
+    <input type="text" name = "ratevalue" placeholder="1 to 5..">
+    <label id="writeReview"> Write Review </label>
+    <textarea name = "setReview" cols="50" rows="5">
+    </textarea>
+    <input type="submit" id="submit-review" name = "buttonvalue" value="Save">
+    <input type="hidden" name = "username" value="{{user.username}}" />
+    <input type="hidden" name = "storename" value="{{storename.store_name}}" />
+    </br>
+       <input type="checkbox" id="option" name = "optioncheckbox" value="Want to Visit">
+       <label for="Want to Visit">Want to Visit</label>
+       <input type="checkbox" id="option" name = "optioncheckbox" value="Been Visited">
+       <label for="Been Visited">Been Visited</label>
+       <input type="checkbox" id="option" name = "optioncheckbox" value="Favorite">
+       <label for="Favorite">Favorite</label>
+    {%  for e in errors %}
+    <label for="errors"> {{e}} </label>
+    {%endfor%}
+</form>
+</div>
+</body>
+</html>

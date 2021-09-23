@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load Charts and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Draw the pie chart
+      google.charts.setOnLoadCallback(drawPieChart);
+
+      // Draw the bar chart 
+      google.charts.setOnLoadCallback(drawBarChart);
+
+      // Callback that draws the pie chart for Sarah's pizza.
+      function drawPieChart() {
+
+        // Create the data table for Sarah's pizza.
+        var data = new google.visualization.DataTable();
+        var results = new Array();
+        count = 0
+        s = ""
+        i = 0
+        n = 0
+        data.addColumn('string', 'Flavor');
+        data.addColumn('number', 'Popularity');
+        {%  for b in favoriteflavors %}
+        if (count == 0){
+            count += 1;
+            s = "{{b}}"
+        }
+        else if (count==1) {
+            count = 0;
+            i = parseInt("{{b}}")
+            var arr = [s,i];
+            results.push([s,i]);
+
+            
+        }
+        {%endfor%}
+        data.addRows(results);
+        //data.addRows(favoriteflavors);
+        var options = {title:'Popurality of Each Flavor',
+                       width:500,
+                       height:400};
+
+        var chart = new google.visualization.PieChart(document.getElementById('Pie_chart_div'));
+        chart.draw(data, options);
+      }
+
+      function drawBarChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'SearchContent');
+        data.addColumn('number', 'Number of Times Searched');
+        var results = new Array();
+        count = 0
+        s = ""
+        i = 0
+        n = 0
+        {%  for b in searchcount %}
+        if (count == 0){
+            count += 1;
+            s = "{{b}}"
+        }
+        else if (count==1) {
+            count = 0;
+            i = parseInt("{{b}}")
+            var arr = [s,i];
+            results.push([s,i]);
+            
+        }
+        {%endfor%}
+        data.addRows(results);
+
+        var barchart_options = {title:'Barchart: Search Results Occurrences',
+                       width:500,
+                       height:400,
+                       legend: 'none'};
+        var barchart = new google.visualization.BarChart(document.getElementById('Bar_chart_div'));
+        barchart.draw(data, barchart_options);
+      }
+    </script>
+  </head>
+  <body>
+    <!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td><div id="Pie_chart_div" style="border: 2px solid #ccc"></div></td>
+        <td><div id="Bar_chart_div" style="border: 2px solid #ccc"></div></td>
+      </tr>
+    </table>
+  </body>
+</html>
+

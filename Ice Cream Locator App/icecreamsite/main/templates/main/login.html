@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style> 
+    body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        background-color: #e7e7e6;
+        background-image: url('https://thumbs.dreamstime.com/b/seamless-ice-cream-icons-pattern-white-background-black-115125311.jpg');
+    }
+    h1 {
+            text-align:center;
+        }
+    div {
+        background-color: #e7e7e6;
+    }
+    #login-form {
+            align-self: flex-start;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+    }
+    #login-form-submit {
+            width: 100%;
+            padding: 7px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            background-color: #3a3a3a;
+            cursor: pointer;
+            outline: none;
+    }
+    #login-form-register {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            background-color: #3a3a3a;
+            cursor: pointer;
+            outline: none;
+    }
+    </style>
+</head>
+<body>
+<div>
+<h1> Login Page </h1>
+<img src="https://st2.depositphotos.com/1070291/11339/v/950/depositphotos_113397676-stock-illustration-ice-cream-pin-map-icon.jpg" alt="Simply Easy Learning" width="250" height="200">
+<form id="login-form" action= "login" method="post">
+     {% csrf_token %}
+    <label for="username">Username: </label>
+    <input id="your_name" type="text" name="username">
+    <br>
+    <label for="pass_word">Password: </label>
+    <input id="pass_word" type="text" name="pass_word">
+    </br>
+    <br>
+    <input type="submit" id="login-form-submit" name = "buttonvalue" value="Sign-in">
+    </br>
+    <br>
+    <input type="submit" id="login-form-register" name = "buttonvalue" value="Register a new account">
+    </br>
+    {%  for e in errors %}
+    <label for="errors"> {{e}} </label>
+    {%endfor%}
+</form>
+</div>
+</body>
+</html>

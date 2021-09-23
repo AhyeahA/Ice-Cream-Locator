@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+       .profileContent {
+            background-color: lightgrey;
+            height: 100%;
+        margin: 50;
+        font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        }
+       body {
+        height: 100%;
+        margin: 50;
+        font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        background-image: url('https://thumbs.dreamstime.com/b/seamless-ice-cream-icons-pattern-white-background-black-115125311.jpg');
+        }
+      /* Add a black background color to the top navigation bar */
+      .topnav {
+        overflow: hidden;
+        background-color: #e9e9e9;
+      }
+
+      /* Style the links inside the navigation bar */
+      .topnav a {
+        float: left;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      /* Change the color of links on hover */
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      /* Style the "active" element to highlight the current page */
+     .topnav #navbuttonactive {
+        background-color: #2196f3;
+        color: white;
+      }
+
+      /* Style the links inside the navigation bar */
+      .topnav input[type="submit"] {
+        float: left;
+        font-family: Times new Roman;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        border: none;
+      }
+
+      .topnav a{
+        float: left;
+        font-family: Times new Roman;
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        border: none;
+      }
+
+      /* Style the search box inside the navigation bar */
+      .topnav input[type="text"] {
+        float: right;
+        padding: 7px;
+        border: none;
+        margin-top: 8px;
+        margin-right: 16px;
+        font-size: 17px;
+      }
+
+      /* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+      @media screen and (max-width: 600px) {
+        .topnav a,
+        .topnav input[type="text"] {
+          float: none;
+          display: block;
+          font-family: Times new Roman;
+          text-align: left;
+          width: 100%;
+          margin: 0;
+          padding: 14px;
+        }
+        .topnav input[type="text"] {
+          border: 1px solid #ccc;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    
+    <!--The div element for the map -->
+    <form method="POST" action="/main/profile">
+    {% csrf_token %}
+    <div class="topnav">
+      <input id="navbutton" type="submit" name = "buttonclicked" value="Map">
+      <input id="navbuttonactive" type="submit" name = "buttonclicked" value="{{user.username}}'s Profile">
+      <a href="statistics">Statistics</a>
+      <input type="text" name = "search" placeholder="Search..." />
+      <input type="hidden" name = "username" value="{{user.username}}" />
+    </div>
+    <div class="profileContent">
+    <label for="fav_ice"> Favorite Flavors </label>
+    {%  for b in flavors %}
+    <br>
+        <label>{{b.flavor.flavor_name}}</label>
+    <br>
+    {% endfor %}
+
+    {%  for b in checkoptions %}
+    <br>
+        {%  if b.favorite_store %}
+        <label for="store"> Favorites: {{b.store.store_name}}</label>
+        <br>
+        {%endif%}
+        {%  if b.want_to_visit %}
+        <label for="store"> Want to Visit: {{b.store.store_name}} </label>
+        <br>
+        {%endif%}
+        {%  if b.been_visited %} 
+        <label for="store"> Been Visited:{{b.store.store_name}} </label>
+        <br>
+        {%endif%}
+        
+    <br>
+    {% endfor %}
+    <div>
+  </body>
+</html>
